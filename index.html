@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+	<meta charset="UTF-8">
+ 	 <title>Hangman on Holiday</title>
+ 	 <link rel="icon" type="image/png" href="https://cdn3.iconfinder.com/data/icons/brain-games/128/Hangman-Game.png">
+
+ 	 <link href="https://fonts.googleapis.com/css?family=Amatic+SC:700|Nothing+You+Could+Do" rel="stylesheet">
+ 	 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+	<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+
+<body>
+	<div id="overall-container">
+	<header>
+		<h1><i class="fa fa-plane" id="plane-img" aria-hidden="true"></i>Hangman on Holiday:</h1>
+		<h2>Around the world in 26 letters</h2>
+	</header>
+	
+	<div id="results">
+	</div>
+
+	<section>
+	<div id="table-row">
+
+		<div id="left-col">
+			<img src="https://source.unsplash.com/featured/?travel" alt="random photo of the world" id="left-pic" />
+		</div>
+
+		<div id="right-col">
+			<p>Press any key to get started!</p>
+			<br/>
+
+			<div id="wins">Wins</div>
+			<br/>
+
+			<p>Current Word</p>
+			<br/>
+
+			<div id="listed"></div>
+			<br/>
+
+			<div id="counter">Number of Guesses Left</div>
+			<br/>
+
+			<div id="guessed">Letters Already Guessed</div>
+		</div>
+	</div>
+	</section>
+	</div>
+
+	<script type="text/javascript" src="assets/javascript/game.js"></script>
+</body>
+</html>
