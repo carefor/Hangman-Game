@@ -1,84 +1,39 @@
-var allLetters, guessesLeft, words, messages, lettersGuessed, lettersMatched, listed;
+var wordList = [
+["A", "R", "G", "E", "N", "T", "I", "N", "A"],
+  ["B", "E", "L", "G", "I", "U", "M"],
+  ["C", "Y", "P", "R", "U", "S"],
+  ["F", "I", "N", "L", "A", "N", "D"],
+  ["H", "U", "N", "G", "A", "R", "Y"],
+  ["I", "N", "D", "O", "N", "E", "S", "I", "A"],
+  ["J", "O", "R", "D", "A", "N"],
+  ["K", "E", "N", "Y", "A"],
+  ["K", "Y", "R", "G", "Y", "Z", "S", "T", "A", "N"],
+  ["L", "U", "X", "E", "M", "B", "O", "U", "R", "G"],
+  ["M", "A", "L", "T", "A"],
+  ["M", "O", "Z", "A", "M", "B", "I", "Q", "U", "E"],
+  ["N", "E", "T", "H", "E", "R", "L", "A", "N", "D", "S"],
+  ["S", "W", "I", "T", "Z", "E", "R", "L", "A", "N", "D"],
+  ["S", "L", "O", "V", "E", "N", "I", "A"],
+  ["T", "H", "A", "I", "L", "A", "N", "D"],
+  ["T", "U", "R", "K", "E", "Y"]
+]
 
-function setup() {
-allLetters = "abcdefghijklmnopqrstuvwxyz";
-guessesLeft = 10;
-words = ["Argentina", "Belgium", "Cyprus", "Finland", "Hungary", "Indonesia", "Jordan", "Kenya", "Kyrgyzstan", 
-"Luxembourg", "Malta", "Mozambique", "Netherlands", "Switzerland", "Slovenia", "Thailand", "Turkey"];
-messages = {
-	win: 'Bon voyage! You win!! The answer is indeed ',
-	lose: 'Hope you bought travel insurance.. You lost.',
-	guessed: 'That letter has already been guessed. Try again!',
-	validLetter: 'Please choose a letter from A-Z'
-};
+var randomIndex = Math.floor((Math.random()*(wordList.length-1)));
 
-function randomSelector() {
-	return Math.floor(Math.random() * words.length);
-var chosenWord = words[randomSelector()]; 
+var chosenWord = wordList[randomIndex];
+var dashedWord = new Array(chosenWord.length);
+var mistake = 0;
+
+for (var i = 0; i < dashedWord.length; i++){
+	dashedWord[i] = "_ ";
 }
 
-document.onkeypress = function(event) {
-	var dashes= " ";
-	for (var i = 0; i < chosenWord.length; i++) {
-		if(chosenWord.charAt(i) == " ") {
-		dashes += " ";
-		} else {
-		dashes += "-";
-		}
-	}	
-}
-
-document.getElementById("listed").innerHTML = dashes;
-
-var letter = String.fromCharCode(event.keyCode).toUpperCase();
-
-document.getElementById("listed").value = ' ' ;
-
-document.getElementById("counter").innerHTML = 'You have' + guessesLeft + 'guesses left';
-
-
-function gameOver(win) {
-	if (win) {
-		document.getElementById("results").innerHTML = messages.win + wordChosen;
-		document.getElementById("wins").innerHTML = 0++;
-	} else {
-		document.getElementById("results").innerHTML = messages.lose;
+function displayWord(){
+	for (var i = 0; i < dashedWord.length; i++){
+	var activeWord = document.getElementById("active-word");
+	var letter = document.createTextNode(dashedWord[i]);
+	activeWord.appendChild(letter);
 	}
 }
 
-if (letter) {
-	if (allLetters.indexOf(letter) > -1) {
-		if(lettersMatched && lettersMatched.indexOf(letter) > -1) || 
-			(lettersGuessed && lettersGuessed.indexOf(letter) > -1){
-			guessed.innerHTML = ' " ' + letter.toUpperCase() + ' " ' 
-			+ alert(messages.guessed);
-		}
-	}
 
-		else if (chosenWord.indexOf(letter) > -1) {
-			var displayedLetters;
-			displayedLetters = document.querySelectorAll("#listed" + letter.toUpperCase());
-			
-			for (var j = 0; j <chosenWord.length; j++) {
-				if (chosenWord.charAt(j) === letter) {
-				numLettersMattched += 1;
-				}
-			}
-		}
-			if (numLettersMatched === chosenWord.length) {
-				gameOver(true);	
-				lettersMatched += letter;			}
-			else {
-				lettersGuessed += letter;
-				guessesLeft--;
-				counter.innerHTML = 'You have' + guessesLeft + 'guesses left';
-				if (guessesLeft === 0) gameOver();
-			}	 	
-
-	 		else {
-	 			alert(messages.validLetter);
-	 		}
-
-			return false;
-}
- };
