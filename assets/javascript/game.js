@@ -45,7 +45,7 @@ function getKey(event) {
     console.log(keyChar);
 }
 
-var compareLetter = function(){
+var matchLetter = function(){
    for (var i = 0; i < chosenWord.length; i++){
       if(chosenWord[i] === keyChar){
          dashedWord[i] = keyChar + " ";
@@ -60,5 +60,5 @@ var activeWord = document.getElementById("active-word");
 if(!success){
    var guessedLetter = document.getElementById("guessed");
    var repLetter = document.createTextNode(" " + keyChar);
-   guessedLetter.appendChild(letter); 
+   guessedLetter.appendChild(keyChar); 
    mistake++;
