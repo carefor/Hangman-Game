@@ -29,7 +29,7 @@ h1 {
 	padding-top: 10px;
 	padding-bottom: 10px;
 	font-size: 70px;
-	text-shadow: 1px -1px 3px #EDFDFF;
+	text-shadow: 2px -1px 4px #EDFDFF;
 }
 
 h2 {
@@ -37,7 +37,7 @@ h2 {
 	padding-left: 50px;
 	font-size: 44px;
 	font-style: italic;
-	text-shadow: 1px -1px 3px #EDFDFF;
+	text-shadow: 2px -1px 4px #EDFDFF;
 }
 
 #results {
