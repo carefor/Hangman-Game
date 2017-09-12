@@ -42,7 +42,7 @@ function getKey(event) {
     event = event || window.event;
     var keyCode = event.which || event.keyCode;
     var keyChar = String.fromCharCode(keyCode).toUpperCase();
-    console.log(keyChar);
+    console.log(“The key that was pressed was ” + keyChar);
 }
 
 var matchLetter = function(){
@@ -53,12 +53,33 @@ var matchLetter = function(){
           }
 }
 
-var activeWord = document.getElementById("active-word");
-   activeWord.innerHTML=""; 
-   displayWord();
+   var activeWord = document.getElementById("active-word");
+      activeWord.innerHTML=""; 
+      displayWord();
 
-if(!success){
-   var guessedLetter = document.getElementById("guessed");
-   var repLetter = document.createTextNode(" " + keyChar);
-   guessedLetter.appendChild(keyChar); 
-   mistake++;
+   if(!success){
+      var guessedLetter = document.getElementById("guessed");
+      var repLetter = document.createTextNode(" " + keyChar);
+      guessedLetter.appendChild(keyChar); 
+      mistake++;
+
+   var gameOver = true;
+      for (var i = 0; i < dashedWord.length; i++){
+         if(dashedWord[i] === "_ "){
+         gameOver = false;
+         }
+      }
+
+   if(gameOver){
+      var areaResults = document.getElementById("results");
+      var winText = document.createTextNode("Bon voyage! You win!! The answer is indeed" + chosenWord);
+      areaResults.appendChild(winText);
+   }
+
+   if(mistake === 8){
+      var areaResults = document.getElementById("results");
+      var loseText = document.createTextNode("Hope you bought travel insurance.. You lost.");
+      areaResults.appendChild(loseText);
+    }
+}
+
