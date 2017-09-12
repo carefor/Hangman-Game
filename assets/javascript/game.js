@@ -25,15 +25,40 @@ var dashedWord = new Array(chosenWord.length);
 var mistake = 0;
 
 for (var i = 0; i < dashedWord.length; i++){
-	dashedWord[i] = "_ ";
+   dashedWord[i] = "_ ";
 }
 
 function displayWord(){
-	for (var i = 0; i < dashedWord.length; i++){
-	var activeWord = document.getElementById("active-word");
-	var letter = document.createTextNode(dashedWord[i]);
-	activeWord.appendChild(letter);
-	}
+   for (var i = 0; i < dashedWord.length; i++){
+   var activeWord = document.getElementById("active-word");
+   var repLetter = document.createTextNode(dashedWord[i]);
+   activeWord.appendChild(repLetter);
+   }
 }
 
+document.onkeypress = getKey;
 
+function getKey(event) {
+    event = event || window.event;
+    var keyCode = event.which || event.keyCode;
+    var keyChar = String.fromCharCode(keyCode).toUpperCase();
+    console.log(keyChar);
+}
+
+var compareLetter = function(){
+   for (var i = 0; i < chosenWord.length; i++){
+      if(chosenWord[i] === keyChar){
+         dashedWord[i] = keyChar + " ";
+         var success = true;
+          }
+}
+
+var activeWord = document.getElementById("active-word");
+   activeWord.innerHTML=""; 
+   displayWord();
+
+if(!success){
+   var guessedLetter = document.getElementById("guessed");
+   var repLetter = document.createTextNode(" " + keyChar);
+   guessedLetter.appendChild(letter); 
+   mistake++;
