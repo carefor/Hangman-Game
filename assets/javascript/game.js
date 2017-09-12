@@ -22,7 +22,7 @@ var randomIndex = Math.floor((Math.random()*(wordList.length-1)));
 
 var chosenWord = wordList[randomIndex];
 var dashedWord = new Array(chosenWord.length);
-var mistakeCounter = 0;
+var mistakeCounter = 7;
 var winsCounter = 0;
 
 for (var i = 0; i < dashedWord.length; i++){
@@ -62,7 +62,11 @@ var matchLetter = function(){
       var guessedLetter = document.getElementById("guessed");
       var repLetter = document.createTextNode(" " + keyChar);
       guessedLetter.appendChild(repLetter); 
-      mistakeCounter++;
+      mistakeCounter--;
+      var guessCounter = document.getElementById("guess-counter");
+      var guessesLeft = document.createTextNode(mistakeCounter);
+      guessCounter.appendChild(guessesLeft);
+   }
 
    var gameOver = true;
       for (var i = 0; i < dashedWord.length; i++){
@@ -77,9 +81,10 @@ var matchLetter = function(){
       areaResults.appendChild(winText);
       var wins = document.getElementById("wins");
       var displayWins = document.createTextNode(winsCounter++);
+      wins.appendChild(displayWins);
    }
 
-   if(mistakeCounter === 8){
+   if(mistakeCounter === 0){
       var areaResults = document.getElementById("results");
       var loseText = document.createTextNode("Hope you bought travel insurance.. You lost.");
       areaResults.appendChild(loseText);
