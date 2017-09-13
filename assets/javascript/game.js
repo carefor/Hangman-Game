@@ -1,3 +1,5 @@
+"use strict";
+
 var wordList = [
 ["A", "R", "G", "E", "N", "T", "I", "N", "A"],
   ["B", "E", "L", "G", "I", "U", "M"],
@@ -40,10 +42,12 @@ var activeWord = document.getElementById("active-word");
 
 displayWord()
 
-document.onkeypress = function (event) {
-  var keyChar = event.key.toUpperCase();
-  console.log(keyChar + " was pressed");
-}
+var keyChar
+      document.onkeypress = function (event) {
+          keyChar = event.key.toUpperCase();
+          console.log(keyChar + " was pressed");
+          }
+
 
 var success = false;
       function matchLetter() {
