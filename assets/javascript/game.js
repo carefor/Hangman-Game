@@ -18,7 +18,7 @@ var wordList = [
   ["T", "U", "R", "K", "E", "Y"]
 ]
 
-var randomIndex = Math.floor((Math.random()*(wordList.length-1)));
+var randomIndex = Math.floor( Math.random()*(wordList.length - 1) );
 
 var chosenWord = wordList[randomIndex];
 var dashedWord = new Array(chosenWord.length);
@@ -30,35 +30,33 @@ for (var i = 0; i < dashedWord.length; i++){
 }
 
 var activeWord = document.getElementById("active-word");
-var repLetter = document.createTextNode(dashedWord[i]);
 
-function displayWord(){
+function displayWord() {
    for (var i = 0; i < dashedWord.length; i++){
-   activeWord.appendChild(repLetter);
+    activeWord.innerHTML = dashedWord.join("");
    }
 }
 
-document.onkeypress = getKey;
+displayWord()
 
-var keyCode = event.which || event.keyCode;
-var keyChar = String.fromCharCode(keyCode).toUpperCase();
-
-function getKey(event) {
-    event = event || window.event;
-    console.log(“The key that was pressed was ” + keyChar);
+document.onkeypress = function (event) {
+  var keyChar = event.key.toUpperCase();
+  console.log(keyChar.toUpperCase() + " was pressed");
 }
 
-var matchLetter = function(){
-   for (var i = 0; i < chosenWord.length; i++){
-      if(chosenWord[i] === keyChar){
-         dashedWord[i] = keyChar + " ";
-         var success = true;
-       }
-   }
+var success = false;
+      function matchLetter() {
+        for (var i = 0; i < chosenWord.length; i++){
+           if(chosenWord[i] === keyChar){
+              dashedWord[i] = keyChar + " ";
+               success = true;
+            }
+         }
+
+   matchLetter()
 
    var activeWord = document.getElementById("active-word");
       activeWord.innerHTML=""; 
-      displayWord();
 
    if(!success){
       var guessedLetter = document.getElementById("guessed");
@@ -88,8 +86,7 @@ var matchLetter = function(){
 
    if(mistakeCounter === 0){
       var areaResults = document.getElementById("results");
-      var loseText = document.createTextNode("Hope you bought travel insurance.. You lost.");
-      areaResults.appendChild(loseText);
+      areaResults.innerHTML = "Hope you bought travel insurance.. You lost.";
     }
 }
 
