@@ -53,7 +53,6 @@ var success = false;
       function matchLetter() {
         for (var i = 0; i < chosenWord.length; i++){
            if(chosenWord[i] === keyChar){
-              dashedWord[i] = keyChar + " ";
                success = true;
             }
          }
@@ -62,7 +61,7 @@ var success = false;
 
    if(success = true){
       var guessedLetter = document.getElementById("guessed");
-      var repLetter = document.createTextNode(" " + keyChar);
+      var repLetter = document.createTextNode(keyChar);
       guessedLetter.appendChild(repLetter); 
       mistakeCounter--;
       var guessCounter = document.getElementById("guess-counter");
