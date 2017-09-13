@@ -42,7 +42,7 @@ displayWord()
 
 document.onkeypress = function (event) {
   var keyChar = event.key.toUpperCase();
-  console.log(keyChar.toUpperCase() + " was pressed");
+  console.log(keyChar + " was pressed");
 }
 
 var success = false;
