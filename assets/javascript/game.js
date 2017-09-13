@@ -22,20 +22,21 @@ var randomIndex = Math.floor( Math.random()*(wordList.length - 1) );
 
 var chosenWord = wordList[randomIndex];
 var dashedWord = new Array(chosenWord.length);
+
 var mistakeCounter = 7;
 var winsCounter = 0;
+
 
 for (var i = 0; i < dashedWord.length; i++){
    dashedWord[i] = "_ ";
 }
 
 var activeWord = document.getElementById("active-word");
-
-function displayWord() {
-   for (var i = 0; i < dashedWord.length; i++){
-    activeWord.innerHTML = dashedWord.join("");
-   }
-}
+   function displayWord() {
+      for (var i = 0; i < dashedWord.length; i++){
+        activeWord.innerHTML = dashedWord.join("");
+      }
+  }
 
 displayWord()
 
@@ -55,10 +56,7 @@ var success = false;
 
    matchLetter()
 
-   var activeWord = document.getElementById("active-word");
-      activeWord.innerHTML=""; 
-
-   if(!success){
+   if(success = true){
       var guessedLetter = document.getElementById("guessed");
       var repLetter = document.createTextNode(" " + keyChar);
       guessedLetter.appendChild(repLetter); 
