@@ -79,7 +79,7 @@ var success = false;
 
    if(gameOver){
       var areaResults = document.getElementById("results");
-      var winText = document.createTextNode("Bon voyage! You win!! The answer is indeed" + chosenWord);
+      var winText = document.createTextNode("Bon voyage! You win!! The answer is indeed " + chosenWord);
       areaResults.appendChild(winText);
       var wins = document.getElementById("wins");
       var displayWins = document.createTextNode(winsCounter++);
