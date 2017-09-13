@@ -40,14 +40,13 @@ var activeWord = document.getElementById("active-word");
       }
   }
 
-displayWord()
+displayWord();
 
-var keyChar
+var keyChar;
       document.onkeypress = function (event) {
           keyChar = event.key.toUpperCase();
           console.log(keyChar + " was pressed");
           }
-
 
 var success = false;
       function matchLetter() {
@@ -57,7 +56,7 @@ var success = false;
             }
          }
 
-   matchLetter()
+   matchLetter();
 
    if(success = true){
       var guessedLetter = document.getElementById("guessed");
