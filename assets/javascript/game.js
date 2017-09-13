@@ -29,20 +29,22 @@ for (var i = 0; i < dashedWord.length; i++){
    dashedWord[i] = "_ ";
 }
 
+var activeWord = document.getElementById("active-word");
+var repLetter = document.createTextNode(dashedWord[i]);
+
 function displayWord(){
    for (var i = 0; i < dashedWord.length; i++){
-   var activeWord = document.getElementById("active-word");
-   var repLetter = document.createTextNode(dashedWord[i]);
    activeWord.appendChild(repLetter);
    }
 }
 
 document.onkeypress = getKey;
 
+var keyCode = event.which || event.keyCode;
+var keyChar = String.fromCharCode(keyCode).toUpperCase();
+
 function getKey(event) {
     event = event || window.event;
-    var keyCode = event.which || event.keyCode;
-    var keyChar = String.fromCharCode(keyCode).toUpperCase();
     console.log(“The key that was pressed was ” + keyChar);
 }
 
