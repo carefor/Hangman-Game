@@ -1,5 +1,6 @@
 "use strict";
 
+//declaring variables
 var wordList = [
 ["A", "R", "G", "E", "N", "T", "I", "N", "A"],
   ["B", "E", "L", "G", "I", "U", "M"],
@@ -23,31 +24,37 @@ var wordList = [
 var randomIndex = Math.floor( Math.random()*(wordList.length - 1) );
 var chosenWord = wordList[randomIndex];
 var dashedWord = new Array(chosenWord.length);
+
 var activeWord = document.getElementById("active-word");
 var resultsArea = document.getElementById("results");
+
 var keyChar = "";
+
 var success = false;
 var gameWon = false;
+
 var mistakeCounter = 7;
 var winsCounter = 0;
 
-
+//replaces each letter (index) with a dash
 for (var i = 0; i < dashedWord.length; i++){
    dashedWord[i] = "_ ";
 }
 
+//prints the dashed word on the screen
    function displayWord() {
       for (var i = 0; i < dashedWord.length; i++){
         activeWord.innerHTML = dashedWord.join("");
       }
   }
 
-var activeWord = document.getElementById("active-word");
+//compares if key pressed is in the word and if so replaces dash with letter on screen
  function matchLetter() {
       for (var i = 0; i < chosenWord.length; i++){
         keyChar = event.key.toUpperCase();
            if(chosenWord[i] === keyChar){
                success = true;
+               var activeWord = document.getElementById("active-word");
                activeWord[i].innerHTML = keyChar;
             }
          else if(chosenWord[i] !== keyChar){
@@ -56,7 +63,7 @@ var activeWord = document.getElementById("active-word");
           }
         }
 
-
+      //wrong guesses result in letter printed to screen and wrong guess counter decreased
     function wrongGuess() {
       if(success = false){
       var guessedLetter = document.getElementById("guessed");
@@ -69,6 +76,7 @@ var activeWord = document.getElementById("active-word");
        }
      }
 
+//reads if all dashes have been replaced with letters and so if game is over
 function gameOngoing() {
       for (var i = 0; i < dashedWord.length; i++){
          if(dashedWord[i] === "_ "){
@@ -80,22 +88,26 @@ function gameOngoing() {
       }
     }
 
+//if win, displays text and increases wins counter
 function winningGame() {
    if(gameWon = true){
       var winText = document.createTextNode("Bon voyage! You win!! The answer is indeed " + chosenWord.join(""));
       resultsArea.appendChild(winText);
+      winsCounter++;
       var wins = document.getElementById("wins");
-      var displayWins = document.createTextNode(winsCounter++);
+      var displayWins = document.createTextNode(winsCounter);
       wins.appendChild(displayWins);
    }
  }
 
+//if run out of guesses, 'you lost' message displayed
 function losingGame() {
    if(mistakeCounter === 0) {
       resultsArea.innerHTML = "Hope you bought travel insurance.. You lost.";
     }
   }
 
+//recognizes key pressed and runs functions
     document.onkeypress = function (event) {
       keyChar = event.key.toUpperCase();
           console.log(keyChar + " was pressed");
