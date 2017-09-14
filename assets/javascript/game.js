@@ -45,27 +45,38 @@ for (var i = 0; i < dashedWord.length; i++){
    function displayWord() {
       for (var i = 0; i < dashedWord.length; i++){
         activeWord.innerHTML = dashedWord.join("");
+        console.log("The word is " + chosenWord.join(""));
       }
   }
+    displayWord();
 
-//compares if key pressed is in the word and if so replaces dash with letter on screen
- function matchLetter() {
+//compares if key pressed is in the word
+ function compareLetter() {
       for (var i = 0; i < chosenWord.length; i++){
-        keyChar = event.key.toUpperCase();
+        var keyChar = event.key.toUpperCase();
            if(chosenWord[i] === keyChar){
                success = true;
-               var activeWord = document.getElementById("active-word");
-               activeWord[i].innerHTML = keyChar;
+               console.log(keyChar + " is in " + chosenWord.join(""));
             }
          else if(chosenWord[i] !== keyChar){
                success = false;
+               console.log(keyChar + " is not in " + chosenWord.join(""));
              }
           }
         }
 
+       //if key pressed is in word it prints it to the screen
+      // function letterMatches() {
+        //activeWord = document.getElementById("active-word");
+        //keyChar = event.key.toUpperCase();
+        //activeWord[i].appendChild(keyChar); 
+       //}
+       
+
       //wrong guesses result in letter printed to screen and wrong guess counter decreased
     function wrongGuess() {
       if(success = false){
+      keyChar = event.key.toUpperCase();
       var guessedLetter = document.getElementById("guessed");
       var repLetter = document.createTextNode(keyChar);
       guessedLetter.appendChild(repLetter); 
@@ -76,29 +87,29 @@ for (var i = 0; i < dashedWord.length; i++){
        }
      }
 
-//reads if all dashes have been replaced with letters and so if game is over
-function gameOngoing() {
-      for (var i = 0; i < dashedWord.length; i++){
-         if(dashedWord[i] === "_ "){
-         gameWon = false;
-         }
-         else if(dashedWord[i] !== "_ "){
-          gameWon = true;
-         }
-      }
-    }
+//reads if all dashes have been replaced with letters and so if game is ongoing
+//function gameOngoing() {
+  //    for (var i = 0; i < dashedWord.length; i++){
+    //     if(dashedWord[i] === "_ "){
+      //   gameWon = false;
+        // }
+         //else if(dashedWord[i] !== "_ "){
+          //gameWon = true;
+         //}
+      //}
+    //}
 
 //if win, displays text and increases wins counter
-function winningGame() {
-   if(gameWon = true){
-      var winText = document.createTextNode("Bon voyage! You win!! The answer is indeed " + chosenWord.join(""));
-      resultsArea.appendChild(winText);
-      winsCounter++;
-      var wins = document.getElementById("wins");
-      var displayWins = document.createTextNode(winsCounter);
-      wins.appendChild(displayWins);
-   }
- }
+//function winningGame() {
+  // if(gameWon = true){
+    //  var winText = document.createTextNode("Bon voyage! You win!! The answer is indeed " + chosenWord.join(""));
+     // resultsArea.appendChild(winText);
+     // winsCounter++;
+     // var wins = document.getElementById("wins");
+     // var displayWins = document.createTextNode(winsCounter);
+     // wins.appendChild(displayWins);
+  // }
+ //}
 
 //if run out of guesses, 'you lost' message displayed
 function losingGame() {
@@ -110,12 +121,11 @@ function losingGame() {
 //recognizes key pressed and runs functions
     document.onkeypress = function (event) {
       keyChar = event.key.toUpperCase();
-          console.log(keyChar + " was pressed");
-          displayWord();
-          matchLetter();
+          compareLetter();
+          //letterMatches();
           wrongGuess();
-          gameOngoing() 
-          winningGame();
+          //gameOngoing() 
+         // winningGame();
           }
         
 
