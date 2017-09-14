@@ -21,10 +21,13 @@ var wordList = [
 ]
 
 var randomIndex = Math.floor( Math.random()*(wordList.length - 1) );
-
 var chosenWord = wordList[randomIndex];
 var dashedWord = new Array(chosenWord.length);
-
+var activeWord = document.getElementById("active-word");
+var resultsArea = document.getElementById("results");
+var keyChar = "";
+var success = false;
+var gameWon = false;
 var mistakeCounter = 7;
 var winsCounter = 0;
 
@@ -33,32 +36,29 @@ for (var i = 0; i < dashedWord.length; i++){
    dashedWord[i] = "_ ";
 }
 
-var activeWord = document.getElementById("active-word");
    function displayWord() {
       for (var i = 0; i < dashedWord.length; i++){
         activeWord.innerHTML = dashedWord.join("");
       }
   }
 
-displayWord();
-
-var keyChar;
-      document.onkeypress = function (event) {
-          keyChar = event.key.toUpperCase();
-          console.log(keyChar + " was pressed");
-          }
-
-var success = false;
-      function matchLetter() {
-        for (var i = 0; i < chosenWord.length; i++){
+var activeWord = document.getElementById("active-word");
+ function matchLetter() {
+      for (var i = 0; i < chosenWord.length; i++){
+        keyChar = event.key.toUpperCase();
            if(chosenWord[i] === keyChar){
                success = true;
+               activeWord[i].innerHTML = keyChar;
             }
-         }
+         else if(chosenWord[i] !== keyChar){
+               success = false;
+             }
+          }
+        }
 
-   matchLetter();
 
-   if(success = true){
+    function wrongGuess() {
+      if(success = false){
       var guessedLetter = document.getElementById("guessed");
       var repLetter = document.createTextNode(keyChar);
       guessedLetter.appendChild(repLetter); 
@@ -66,27 +66,44 @@ var success = false;
       var guessCounter = document.getElementById("guess-counter");
       var guessesLeft = document.createTextNode(mistakeCounter);
       guessCounter.appendChild(guessesLeft);
-   }
+       }
+     }
 
-   var gameOver = true;
+function gameOngoing() {
       for (var i = 0; i < dashedWord.length; i++){
          if(dashedWord[i] === "_ "){
-         gameOver = false;
+         gameWon = false;
+         }
+         else if(dashedWord[i] !== "_ "){
+          gameWon = true;
          }
       }
+    }
 
-   if(gameOver){
-      var areaResults = document.getElementById("results");
-      var winText = document.createTextNode("Bon voyage! You win!! The answer is indeed " + chosenWord);
-      areaResults.appendChild(winText);
+function winningGame() {
+   if(gameWon = true){
+      var winText = document.createTextNode("Bon voyage! You win!! The answer is indeed " + chosenWord.join(""));
+      resultsArea.appendChild(winText);
       var wins = document.getElementById("wins");
       var displayWins = document.createTextNode(winsCounter++);
       wins.appendChild(displayWins);
    }
+ }
 
-   if(mistakeCounter === 0){
-      var areaResults = document.getElementById("results");
-      areaResults.innerHTML = "Hope you bought travel insurance.. You lost.";
+function losingGame() {
+   if(mistakeCounter === 0) {
+      resultsArea.innerHTML = "Hope you bought travel insurance.. You lost.";
     }
-}
+  }
+
+    document.onkeypress = function (event) {
+      keyChar = event.key.toUpperCase();
+          console.log(keyChar + " was pressed");
+          displayWord();
+          matchLetter();
+          wrongGuess();
+          gameOngoing() 
+          winningGame();
+          }
+        
 
