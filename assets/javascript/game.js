@@ -30,7 +30,7 @@ var resultsArea = document.getElementById("results");
 
 var keyChar = "";
 
-var success = false;
+var match = false;
 var gameWon = false;
 
 var mistakeCounter = 7;
@@ -51,31 +51,26 @@ for (var i = 0; i < dashedWord.length; i++){
     displayWord();
 
 //compares if key pressed is in the word
- function compareLetter() {
-      for (var i = 0; i < chosenWord.length; i++){
-        var keyChar = event.key.toUpperCase();
-           if(chosenWord[i] === keyChar){
-               success = true;
-               console.log(keyChar + " is in " + chosenWord.join(""));
-            }
-         else if(chosenWord[i] !== keyChar){
-               success = false;
-               console.log(keyChar + " is not in " + chosenWord.join(""));
-             }
-          }
+ function compareLetter(keypress) {
+        var keyChar = keypress;
+        var isCorrectGuess = false;
+        if(chosenWord.indexOf(keyChar) === -1) {
+          return isCorrectGuess;
+        } else {
+          return chosenWord.indexOf(keyChar);
+        }
         }
 
        //if key pressed is in word it prints it to the screen
-      // function letterMatches() {
-        //activeWord = document.getElementById("active-word");
-        //keyChar = event.key.toUpperCase();
-        //activeWord[i].appendChild(keyChar); 
-       //}
+      function letterMatches(attempt, keyChar) {
+        dashedWord[attempt] = keyChar;
+        activeWord.innerText = dashedWord.join("");
+       }
        
 
       //wrong guesses result in letter printed to screen and wrong guess counter decreased
     function wrongGuess() {
-      if(success = false){
+      if(match = false){
       keyChar = event.key.toUpperCase();
       var guessedLetter = document.getElementById("guessed");
       var repLetter = document.createTextNode(keyChar);
@@ -103,12 +98,12 @@ for (var i = 0; i < dashedWord.length; i++){
 //function winningGame() {
   // if(gameWon = true){
     //  var winText = document.createTextNode("Bon voyage! You win!! The answer is indeed " + chosenWord.join(""));
-     // resultsArea.appendChild(winText);
+      //resultsArea.appendChild(winText);
      // winsCounter++;
      // var wins = document.getElementById("wins");
      // var displayWins = document.createTextNode(winsCounter);
      // wins.appendChild(displayWins);
-  // }
+ // }
  //}
 
 //if run out of guesses, 'you lost' message displayed
@@ -121,11 +116,16 @@ function losingGame() {
 //recognizes key pressed and runs functions
     document.onkeypress = function (event) {
       keyChar = event.key.toUpperCase();
-          compareLetter();
-          //letterMatches();
+          var attempt = compareLetter(keyChar);
+          if(attempt !== false){
+            letterMatches(attempt, keyChar);
+          } else {
           wrongGuess();
+          }
+          //letterMatches();
+          
           //gameOngoing() 
-         // winningGame();
+         //winningGame();
           }
         
 
