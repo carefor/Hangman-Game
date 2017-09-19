@@ -32,6 +32,7 @@ var startText =  document.getElementById("start-text");
 var activeWord = document.getElementById("active-word");
 var guessCounter = document.getElementById("guess-counter");
 var guessesDisplay = document.getElementById("guessed");
+var wrongsList = document.getElementById("wrongs-list");
 var resultsArea = document.getElementById("results");
 
 var keyChar = "";
@@ -153,8 +154,11 @@ document.onkeypress = function(event) {
     } else {
         wrongGuess(keyChar);
       if (wrongsArray.indexOf(keyChar) === -1) {
-          wrongsArray.push(keyChar);
-        guessesDisplay.innerHTML = wrongsArray.toString();
+        wrongsArray.push(keyChar);
+        var guessText = "Foreign letters:";
+        guessesDisplay.innerHTML = guessText;
+        var wrongs = wrongsArray.toString();
+        wrongsList.innerHTML = wrongs;
       }
     }
   }
