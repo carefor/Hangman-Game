@@ -112,6 +112,7 @@ var allMatch = true;
   if(allMatch){
     console.log("Game won");
     winsCounter++;
+    var winText = "Bon voyage! You win!! The answer is indeed " + chosenWord.join("");
     var resultsArea = document.getElementById("results");
     resultsArea.innerHTML = winText;
     var winsDisplay = document.getElementById("wins");
@@ -125,6 +126,7 @@ function resetGame() {
   mistakeCounter = 7;
   guessCounter.innerHTML = mistakeCounter.toString();
   wrongsArray = [ ];
+  guessesDisplay.innerHTML = wrongsArray.toString();
   startMsg = "Press any key to start!";
   startText.innerHTML = startMsg;
   winText = "";
