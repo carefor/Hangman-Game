@@ -21,14 +21,34 @@ var wordList = [
     ["T", "U", "R", "K", "E", "Y"]
 ]
 
+var winningImages = [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    []
+]
+
 var randomIndex = Math.floor(Math.random() * (wordList.length - 1));
 var chosenWord = wordList[randomIndex];
 var dashedWord = new Array(chosenWord.length);
 
 var isSame = true;
-var wrongsArray = [ ];
+var wrongsArray = [];
 
-var startText =  document.getElementById("start-text");
+var startText = document.getElementById("start-text");
 var activeWord = document.getElementById("active-word");
 var guessCounter = document.getElementById("guess-counter");
 var guessesDisplay = document.getElementById("guessed");
@@ -49,43 +69,47 @@ function displayWord() {
     chosenWord = wordList[randomIndex];
     dashedWord = new Array(chosenWord.length);
     for (var i = 0; i < dashedWord.length; i++) {
-    dashedWord[i] = "_ ";
-  }
-        activeWord.innerHTML = dashedWord.join("");
-        console.log("The word is " + chosenWord.join(""));
-        startText.innerHTML = startMsg;
+        dashedWord[i] = "_ ";
+    }
+    activeWord.innerHTML = dashedWord.join("");
+    console.log("The word is " + chosenWord.join(""));
+    startText.innerHTML = startMsg;
 }
 displayWord();
 
 //compares if key pressed is in the word
 function compareLetter(keypress) {
-  var keyChar = keypress;
-  var isCorrectGuess = false;
-  for (var i = 0; i < chosenWord.length; i++) {
-   if (chosenWord.indexOf(keyChar) === -1) {
-     return isCorrectGuess;
-    } else {
-      return chosenWord.indexOf(keyChar);
+    var keyChar = keypress;
+    var check_array = [];
+    for (var i = 0; i < chosenWord.length; i++) {
+      if(keyChar === chosenWord[i]){
+        check_array.push(i);
+      } 
     }
-}
+    if(check_array.length >0){
+      return check_array;
+    } else {
+      return false;
+    }
 }
 
 //if key pressed is in word it prints it to the screen
-function letterMatches(attempt, keyChar) {
-    if (dashedWord.includes(keyChar)) {
-      alert("You've already used this letter. Try again!");
+function letterMatches(attempt_arr, keyChar) {
+    if (dashedWord.indexOf(keyChar) !== -1) {
+        alert("You've already used this letter. Try again!");
     }
-    for (var i = 0; i < dashedWord.length; i++) {
-    dashedWord[attempt] = keyChar;
-    activeWord.innerHTML = dashedWord.join("");
-  }
+    for(var i = 0; i < attempt_arr.length; i++){
+      var a = attempt_arr[i];
+      dashedWord[a]= keyChar;
+    }
+ activeWord.innerHTML = dashedWord.join("");
 }
 
 //wrong guesses result in letter printed to screen and wrong guess counter decreased
 function wrongGuess(keyChar) {
     if (wrongsArray.includes(keyChar)) {
-      alert("You've already tried this letter. Guess again!");
-    } 
+        alert("You've already tried this letter. Guess again!");
+    }
     mistakeCounter--;
     console.log("guesses left: ", mistakeCounter, ";", "wrong letter: ", keyChar);
     guessCounter.innerHTML = mistakeCounter.toString();
@@ -93,75 +117,75 @@ function wrongGuess(keyChar) {
 
 //if run out of guesses, game lost message displayed
 function gameLost() {
-  if (mistakeCounter === 0) {
-    console.log("Too many mistakes were made. Game over");
-    var resultsArea = document.getElementById("results");
-    var loseText = "Hope you bought travel insurance.. You lost.";
-    resultsArea.innerHTML = loseText;
-    setTimeout (resetGame, 3000);
-  }
+    if (mistakeCounter === 0) {
+        console.log("Too many mistakes were made. Game over");
+        var resultsArea = document.getElementById("results");
+        var loseText = "Hope you bought travel insurance.. You lost.";
+        resultsArea.innerHTML = loseText;
+        setTimeout(resetGame, 3000);
+    }
 }
 
 //if win, displays text and increases wins counter
 function gameWon() {
-var allMatch = true;
-  for (var i = 0; i < dashedWord.length; i++){
-    if(dashedWord[i] === "_ "){
-      allMatch = false;
+    var allMatch = true;
+    for (var i = 0; i < dashedWord.length; i++) {
+        if (dashedWord[i] === "_ ") {
+            allMatch = false;
+        }
     }
-  }
-  if(allMatch){
-    console.log("Game won");
-    winsCounter++;
-    var winText = "Bon voyage! You win!! The answer is indeed " + chosenWord.join("");
-    var resultsArea = document.getElementById("results");
-    resultsArea.innerHTML = winText;
-    var winsDisplay = document.getElementById("wins");
-    winsDisplay.innerHTML = winsCounter.toString();
-    setTimeout (resetGame, 3000);
-   }
+    if (allMatch) {
+        console.log("Game won");
+        winsCounter++;
+        var winText = "Bon voyage! You win!! The answer is indeed " + chosenWord.join("");
+        var resultsArea = document.getElementById("results");
+        resultsArea.innerHTML = winText;
+        var winsDisplay = document.getElementById("wins");
+        winsDisplay.innerHTML = winsCounter.toString();
+        setTimeout(resetGame, 3000);
+    }
 }
 
 function resetGame() {
-  displayWord();
-  mistakeCounter = 7;
-  guessCounter.innerHTML = mistakeCounter.toString();
-  wrongsArray = [ ];
-  guessesDisplay.innerHTML = wrongsArray.toString();
-  startMsg = "Press any key to start!";
-  startText.innerHTML = startMsg;
-  winText = "";
-  resultsArea.innerHTML = winText;
+    displayWord();
+    mistakeCounter = 7;
+    guessCounter.innerHTML = mistakeCounter.toString();
+    wrongsArray = [];
+    guessesDisplay.innerHTML = wrongsArray.toString();
+    startMsg = "Press any key to start!";
+    startText.innerHTML = startMsg;
+    winText = "";
+    resultsArea.innerHTML = winText;
 }
 
 //recognizes key pressed and runs functions
 document.onkeypress = function(event) {
     keyChar = event.key.toUpperCase();
     var testValid = new RegExp('[A-Z]');
-      var isValid = testValid.test(keyChar);
-      if (isValid === false) {
-      alert("Invalid key. Please try letters only");
-      } else if (keyChar === "ENTER") {
+    var isValid = testValid.test(keyChar);
+    if (isValid === false) {
+        alert("Invalid key. Please try letters only");
+    } else if (keyChar === "ENTER") {
         alert("Invalid key. Please try letters only");
         return false;
-      }
-      if (isValid !== false) {
-    startMsg = "";
-    startText.innerHTML = startMsg;
-    var attempt = compareLetter(keyChar);
-    if (attempt !== false) {
-        letterMatches(attempt, keyChar);
-    } else {
-        wrongGuess(keyChar);
-      if (wrongsArray.indexOf(keyChar) === -1) {
-        wrongsArray.push(keyChar);
-        var guessText = "Foreign letters:";
-        guessesDisplay.innerHTML = guessText;
-        var wrongs = wrongsArray.toString();
-        wrongsList.innerHTML = wrongs;
-      }
     }
-  }
+    if (isValid !== false) {
+        startMsg = "";
+        startText.innerHTML = startMsg;
+        var attempt = compareLetter(keyChar);
+        if (attempt !== false) {
+            letterMatches(attempt, keyChar);
+        } else {
+            wrongGuess(keyChar);
+            if (wrongsArray.indexOf(keyChar) === -1) {
+                wrongsArray.push(keyChar);
+                var guessText = "Foreign letters:";
+                guessesDisplay.innerHTML = guessText;
+                var wrongs = wrongsArray.toString();
+                wrongsList.innerHTML = wrongs;
+            }
+        }
+    }
     gameLost();
     gameWon();
 }
